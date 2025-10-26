@@ -19,7 +19,7 @@ class Stack {
   }
 
   push(value) {
-    let newNode = { value: element, next: null };
+    let newNode = { value: value, next: null };
 
     if (this.head) {
       newNode.next = this.head;
@@ -31,7 +31,7 @@ class Stack {
   }
 
   pop() {
-    if (!this.head) return null;
+    if (!this.head) return undefined;
 
     let del = this.head;
     this.head = this.head.next;
@@ -40,7 +40,7 @@ class Stack {
   }
 
   peek() {
-    return this.head ? this.head.value : null;
+    return this.head ? this.head.value : undefined;
   }
 }
 

@@ -13,7 +13,34 @@ const { ListNode } = require("../extensions/list-node.js");
  * queue.getUnderlyingList() // returns { value: 3, next: null }
  */
 class Queue {
-  getUnderlyingList() {}
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  getUnderlyingList() {
+    if (!this.head) return null;
+
+    const result = {
+      value: this.head.value,
+      next: null,
+    };
+
+    let current = this.head.next;
+    let resultCurrent = result;
+
+    while (current) {
+      resultCurrent.next = {
+        value: current.value,
+        next: null,
+      };
+      resultCurrent = resultCurrent.next;
+      current = current.next;
+    }
+
+    return result;
+  }
 
   enqueue(value) {
     const node = new ListNode(value);
@@ -30,9 +57,15 @@ class Queue {
   }
 
   dequeue() {
+    if (!this.head) return undefined;
+
     const current = this.head;
     this.head = this.head.next;
     this.length--;
+
+    if (!this.head) {
+      this.tail = null;
+    }
 
     return current.value;
   }
